@@ -61,3 +61,4 @@ class UsuarioController extends Controller
         return response()->json(['mensaje' => 'Sesión cerrada exitosamente']);
     }
 }
+

@@ -1,37 +1,31 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\CarritoCompraController;
 use App\Http\Controllers\OrdenController;
+use Illuminate\Support\Facades\Route;
 
-// Rutas de Usuarios
+// Rutas públicas
 Route::post('/registro', [UsuarioController::class, 'registro']);
 Route::post('/login', [UsuarioController::class, 'login']);
+Route::get('/productos', [ProductoController::class, 'index']);
+Route::get('/productos/{id}', [ProductoController::class, 'show']);
 
-// Rutas protegidas por Sanctum
+// Rutas protegidas
 Route::middleware('auth:sanctum')->group(function () {
     // Usuario
     Route::get('/perfil', [UsuarioController::class, 'perfil']);
     Route::post('/logout', [UsuarioController::class, 'logout']);
 
-    // Carrito de Compras
+    // Carrito
     Route::get('/carrito', [CarritoCompraController::class, 'verCarrito']);
-    Route::post('/carrito/agregar', [CarritoCompraController::class, 'agregarAlCarrito']);
-    Route::put('/carrito/actualizar/{elementoCarritoId}', [CarritoCompraController::class, 'actualizarCarrito']);
-    Route::delete('/carrito/eliminar/{elementoCarritoId}', [CarritoCompraController::class, 'eliminarDelCarrito']);
+    Route::post('/carrito/agregar', [CarritoCompraController::class, 'agregarItem']);
+    Route::put('/carrito/actualizar/{id}', [CarritoCompraController::class, 'actualizarItem']);
+    Route::delete('/carrito/eliminar/{id}', [CarritoCompraController::class, 'eliminarItem']);
 
     // Órdenes
-    Route::post('/ordenes/crear', [OrdenController::class, 'crearOrden']);
-    Route::get('/ordenes', [OrdenController::class, 'listarOrdenes']);
-    Route::get('/ordenes/{ordenId}', [OrdenController::class, 'verOrden']);
-});
-
-// Rutas de Productos (no protegidas)
-Route::get('/productos', [ProductoController::class, 'listarProductos']);
-Route::get('/productos/{productoId}', [ProductoController::class, 'verProducto']);
-
-Route::get('/test', function () {
-    return response()->json(['message' => 'API funcionando']);
+    Route::post('/ordenes/crear', [OrdenController::class, 'crear']);
+    Route::get('/ordenes', [OrdenController::class, 'listar']);
+    Route::get('/ordenes/{id}', [OrdenController::class, 'mostrar']);
 });
