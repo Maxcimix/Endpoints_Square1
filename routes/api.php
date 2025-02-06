@@ -13,7 +13,7 @@ Route::get('/productos', [ProductoController::class, 'index']);
 Route::get('/productos/{id}', [ProductoController::class, 'show']);
 
 // Rutas protegidas
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware('auth:api')->group(function () {
     // Usuario
     Route::get('/perfil', [UsuarioController::class, 'perfil']);
     Route::post('/logout', [UsuarioController::class, 'logout']);
