@@ -18,5 +18,24 @@ class ProductoController extends Controller
         $producto = Producto::with('variantes')->findOrFail($productoId);
         return response()->json(['producto' => $producto]);
     }
+
+    // Nuevo método para crear productos
+    public function Productos(Request $request)
+    {
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'descripcion' => 'required|string',
+            'precio' => 'required|numeric|min:0',
+        ]);
+
+        $producto = Producto::create($request->all());
+
+        return response()->json([
+            'mensaje' => 'Producto creado exitosamente',
+            'producto' => $producto
+        ], 201);
+    }
+
+    
 }
 

@@ -10,6 +10,8 @@ class Usuario extends Authenticatable
 {
     use HasApiTokens, Notifiable;
 
+    protected $table = 'usuarios';
+
     protected $fillable = [
         'nombre', 'email', 'contraseña',
     ];
@@ -17,6 +19,11 @@ class Usuario extends Authenticatable
     protected $hidden = [
         'contraseña', 'remember_token',
     ];
+
+    public function getAuthPassword()
+    {
+        return $this->contraseña;
+    }
 
     public function carritoCompra()
     {

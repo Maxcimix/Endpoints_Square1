@@ -7,16 +7,16 @@ use App\Http\Controllers\OrdenController;
 use Illuminate\Support\Facades\Route;
 
 // Rutas públicas
-Route::post('/registro', [UsuarioController::class, 'registro']);
-Route::post('/login', [UsuarioController::class, 'login']);
-Route::get('/productos', [ProductoController::class, 'index']);
-Route::get('/productos/{id}', [ProductoController::class, 'show']);
+Route::post('/registro', [UsuarioController::class, 'registro']);#ok
+Route::post('/login', [UsuarioController::class, 'login']);#ok
+Route::get('/productos', [ProductoController::class, 'productos']);#ok
+Route::get('/productos/{id}', [ProductoController::class, 'show']);#ok
 
 // Rutas protegidas
-Route::middleware('auth:api')->group(function () {
+Route::middleware('auth:sanctum')->group(function () {
     // Usuario
-    Route::get('/perfil', [UsuarioController::class, 'perfil']);
-    Route::post('/logout', [UsuarioController::class, 'logout']);
+    Route::get('/perfil', [UsuarioController::class, 'perfil']);#ok
+    Route::post('/logout', [UsuarioController::class, 'logout']);#ok
 
     // Carrito
     Route::get('/carrito', [CarritoCompraController::class, 'verCarrito']);
